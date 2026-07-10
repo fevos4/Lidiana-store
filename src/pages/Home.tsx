@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 import { ChevronDown } from 'lucide-react'
@@ -5,9 +6,12 @@ import { Container } from '@/components/layout/Container'
 import { fadeUp } from '@/animations'
 import { COLLECTIONS } from '@/data/collections'
 import { FEATURED_PRODUCTS } from '@/data/products'
+import { FeaturedCarousel } from '@/components/features/FeaturedCarousel'
 import { TestimonialCarousel } from '@/components/features/TestimonialCarousel'
 
 export function Home() {
+  const [flippedId, setFlippedId] = useState<string | null>(null)
+
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }}>
       <section className="relative h-screen w-full overflow-hidden bg-white">
@@ -20,18 +24,18 @@ export function Home() {
         />
         <div className="absolute inset-0 bg-white/30" />
         <div className="absolute bottom-0 left-0 right-0 h-48 bg-gradient-to-t from-white to-transparent pointer-events-none" />
-        <div className="relative flex h-full flex-col items-center justify-center px-8 text-center">
+        <div className="relative flex h-full flex-col items-center justify-center px-5 text-center md:px-8">
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="mb-6 font-body text-xs uppercase tracking-[0.25em] text-gold"
+            className="mb-4 font-body text-xs uppercase tracking-[0.25em] text-gold md:mb-6"
           >Lidiana Habesha</motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="font-heading text-hero md:text-[5.5rem] lg:text-[6.5rem] leading-tight mb-6 text-black"
+            className="font-heading text-[2.5rem] leading-[1.05] mb-5 text-black md:text-hero md:text-[5.5rem] lg:text-[6.5rem] md:leading-tight md:mb-6"
             style={{ textShadow: '0 4px 20px rgba(0,0,0,0.15)' }}
           >
             Modern Ethiopian<br /><span className="font-light italic">Fashion</span>
@@ -40,7 +44,7 @@ export function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="max-w-lg font-body text-sm md:text-base leading-relaxed text-text/60 mb-10"
+            className="max-w-sm font-body text-sm leading-relaxed text-text/60 mb-8 md:max-w-lg md:text-base md:mb-10"
           >
             Lidiana Habesha creates timeless Ethiopian dresses, blending rich cultural heritage with modern luxury. Each piece is crafted with intention, designed to endure.
           </motion.p>
@@ -48,15 +52,11 @@ export function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.9, duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
-            className="flex flex-col gap-4 sm:flex-row"
+            className="flex flex-row items-center"
           >
             <Link to="/collections"
-              className="rounded-sm border border-black/20 px-10 py-3.5 font-body text-xs uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-black hover:text-white">
+              className="rounded-sm border border-gold px-8 py-3 font-body text-xs uppercase tracking-[0.2em] text-gold transition-all duration-300 hover:bg-gold hover:text-white md:px-10 md:py-3.5">
               Explore Collection
-            </Link>
-            <Link to="/contact"
-              className="rounded-sm border border-black/20 px-10 py-3.5 font-body text-xs uppercase tracking-[0.2em] text-black transition-all duration-300 hover:bg-black hover:text-white">
-              Visit Boutique
             </Link>
           </motion.div>
         </div>
@@ -79,26 +79,40 @@ export function Home() {
             <h2 className="font-heading text-h1 md:text-[2.75rem] text-black leading-snug">Featured Dresses</h2>
             <p className="mt-4 font-body text-sm text-text/50 max-w-md mx-auto">Six exceptional pieces chosen for their craftsmanship and narrative.</p>
           </motion.div>
-          <div className="grid grid-cols-1 gap-10 md:grid-cols-2 lg:grid-cols-3">
-            {FEATURED_PRODUCTS.map((product, i) => (
+          <div className="md:hidden">
+            <FeaturedCarousel />
+          </div>
+          <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-3 md:gap-10">
+            {FEATURED_PRODUCTS.map((product, i) => {
+              const isFlipped = flippedId === product.id
+              return (
               <motion.div key={product.id}
                 initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-80px' }}
-                transition={{ delay: i * 0.08, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}>
-                <Link to={'/products/' + product.slug} className="group block">
-                  <div className="relative overflow-hidden mb-5">
-                    <div className="aspect-[3/4] bg-cover bg-center transition-all duration-700 ease-out group-hover:scale-[1.06]"
+                transition={{ delay: i * 0.08, duration: 0.7, ease: [0.25, 0.1, 0.25, 1] }}
+                className="group cursor-pointer [perspective:1000px]"
+                onClick={() => setFlippedId(isFlipped ? null : product.id)}>
+                <div className={'relative aspect-[3/4] [transform-style:preserve-3d] transition-transform duration-[1.2s] ease-out ' + (isFlipped ? '[transform:rotateY(180deg)]' : '')}>
+                  <div className="absolute inset-0 [backface-visibility:hidden] overflow-hidden">
+                    <div className="absolute inset-0 bg-cover bg-center"
                       style={{ backgroundImage: 'url(' + product.image + ')' }} />
                     <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
-                    <span className="rounded-sm absolute bottom-4 left-1/2 -translate-x-1/2 border border-white/80 px-7 py-2.5 font-body text-xs uppercase tracking-[0.2em] text-white opacity-0 transition-all duration-500 group-hover:opacity-100 group-hover:bg-gold group-hover:border-gold">
-                      View Details
-                    </span>
+                    <div className="absolute bottom-0 left-0 right-0 bg-black/60 translate-y-full transition-transform duration-500 group-hover:translate-y-0">
+                      <p className="font-body text-xs uppercase tracking-[0.2em] text-gold text-center py-3">Click to view</p>
+                    </div>
                   </div>
-                  <h3 className="font-heading text-h3 text-black">{product.name}</h3>
-                  <p className="mt-0.5 font-body text-xs uppercase tracking-[0.15em] text-text/50">{product.collection}</p>
-                </Link>
+                  <div className="absolute inset-0 [backface-visibility:hidden] [transform:rotateY(180deg)] bg-black flex flex-col items-center justify-center p-8 text-center">
+                    <h3 className="font-heading text-h3 text-gold mb-2">{product.name}</h3>
+                    <p className="font-body text-xs uppercase tracking-[0.15em] text-white/50 mb-4">{product.collection}</p>
+                    <div className="w-8 h-px bg-gold/60 mb-4" />
+                    <p className="font-body text-sm text-white/60 leading-relaxed">{product.description}</p>
+                  </div>
+                </div>
+                <h3 className="font-heading text-h3 text-black mt-5">{product.name}</h3>
+                <p className="mt-0.5 font-body text-xs uppercase tracking-[0.15em] text-text/50">{product.collection}</p>
               </motion.div>
-            ))}
+              )
+            })}
           </div>
         </Container>
       </section>
@@ -137,7 +151,7 @@ export function Home() {
             <p className="font-body text-xs uppercase tracking-[0.25em] text-gold mb-4">The Lidiana Experience</p>
             <h2 className="font-heading text-h1 md:text-[2.75rem] leading-snug">Defined by Excellence</h2>
           </motion.div>
-          <div className="grid grid-cols-1 gap-0 md:grid-cols-4">
+          <div className="grid grid-cols-2 gap-0 md:grid-cols-4">
             {[
               { title: 'Premium Quality', icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' },
               { title: 'Handcrafted', icon: 'M16 2l4 4-4 4M6 22l-4-4 4-4M8 2l-6 6 6 6M16 22l6-6-6-6' },

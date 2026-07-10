@@ -26,8 +26,8 @@
   --leading-snug: 1.15;
   --leading-relaxed: 1.6;
 
-  --spacing-section: 8rem;
-  --spacing-section-sm: 4rem;
+  --spacing-section: 5rem;
+  --spacing-section-sm: 3rem;
 
   --radius-sm: 2px;
   --radius-md: 4px;
@@ -37,6 +37,13 @@
   --shadow-border-gold: 0 0 0 1px var(--color-gold);
   --shadow-elevated: 0 4px 24px rgba(0,0,0,0.04);
   --shadow-floating: 0 8px 48px rgba(0,0,0,0.06);
+}
+
+@media (min-width: 768px) {
+  :root {
+    --spacing-section: 8rem;
+    --spacing-section-sm: 4rem;
+  }
 }
 
 body {

@@ -55,7 +55,7 @@ export function TestimonialCarousel() {
 
   return (
     <div className="relative mx-auto max-w-3xl">
-      <div className="relative min-h-[320px] md:min-h-[280px]">
+      <div className="relative min-h-[360px] md:min-h-[280px]">
         <AnimatePresence mode="wait" custom={direction}>
           <motion.div
             key={current}
@@ -66,7 +66,7 @@ export function TestimonialCarousel() {
             transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
             className="absolute inset-0 flex flex-col items-center"
           >
-            <span className="font-heading text-[8rem] md:text-[10rem] leading-none text-gold/10 select-none mb-[-2rem]">
+            <span className="font-heading text-[5rem] md:text-[8rem] lg:text-[10rem] leading-none text-gold/10 select-none mb-[-1.5rem] md:mb-[-2rem]">
               "
             </span>
             <p className="font-body text-base md:text-lg text-text/80 leading-relaxed max-w-2xl px-4 mb-8">

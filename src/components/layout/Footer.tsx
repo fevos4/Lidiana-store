@@ -4,13 +4,13 @@ import { Container } from '@/components/layout/Container'
 export function Footer() {
   return (
     <footer className="bg-black">
-      <Container className="py-20 md:py-24">
+      <Container className="py-14 md:py-24">
         <div className="text-center mb-14">
           <Link to="/" className="inline-block">
             <img src="/assets/logo.jpg" alt="Lidiana Habesha" className="h-12 md:h-14 w-auto mx-auto" />
           </Link>
         </div>
-        <div className="grid grid-cols-2 gap-10 text-center md:grid-cols-4 md:gap-0">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-16 md:gap-32 text-center">
           <div>
             <h4 className="font-body text-xs uppercase tracking-[0.2em] text-white/40 mb-4">Navigation</h4>
             <ul className="space-y-2">
@@ -51,6 +51,7 @@ export function Footer() {
             </ul>
           </div>
         </div>
+        <div className="mx-auto my-16 h-px w-full max-w-4xl bg-gold/40" />
         <p className="text-center font-body text-xs text-white/20 leading-relaxed">
           © 2026 Lidiana Habesha
         </p>
