@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-heading: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', Helvetica, Arial, sans-serif;
+
+  --color-white: #FFFFFF;
+  --color-black: #0D0D0D;
+  --color-gold: #C9A44C;
+  --color-gold-hover: #B8922E;
+  --color-cream: #F7F5F2;
+  --color-text: #222222;
+  --color-border: #ECECEC;
+  --color-text-muted: #888888;
+
+  --text-hero: 4.5rem;
+  --text-h1: 3rem;
+  --text-h2: 2.25rem;
+  --text-h3: 1.5rem;
+  --text-h4: 1.125rem;
+  --text-body: 0.938rem;
+  --text-small: 0.813rem;
+  --text-xs: 0.688rem;
+
+  --leading-tight: 1.05;
+  --leading-snug: 1.15;
+  --leading-relaxed: 1.6;
+
+  --spacing-section: 8rem;
+  --spacing-section-sm: 4rem;
+
+  --radius-sm: 2px;
+  --radius-md: 4px;
+  --radius-lg: 0;
+
+  --shadow-border: 0 0 0 1px var(--color-border);
+  --shadow-border-gold: 0 0 0 1px var(--color-gold);
+  --shadow-elevated: 0 4px 24px rgba(0,0,0,0.04);
+  --shadow-floating: 0 8px 48px rgba(0,0,0,0.06);
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  color: var(--color-text);
+  background-color: var(--color-white);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: white;
+}
