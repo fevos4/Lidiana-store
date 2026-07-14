@@ -15,9 +15,10 @@ export function FeaturedCarousel() {
   }, [])
 
   useEffect(() => {
+    if (flippedId) return
     const timer = setInterval(next, 4500)
     return () => clearInterval(timer)
-  }, [next])
+  }, [next, flippedId])
 
   const goTo = (i: number) => {
     setFlippedId(null)

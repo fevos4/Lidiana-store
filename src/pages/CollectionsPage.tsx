@@ -61,6 +61,7 @@ export function CollectionsPage() {
                 <p className="font-body text-xs uppercase tracking-[0.25em] text-gold mb-1">{col.year}</p>
                 <h3 className="font-heading text-h3 text-black group-hover:text-gold transition-colors duration-300 mb-1">{col.name}</h3>
                 <p className="font-body text-xs uppercase tracking-[0.15em] text-text/50">{col.subtitle}</p>
+                <p className="mt-3 font-body text-xs uppercase tracking-[0.15em] text-gold">See More →</p>
               </Link>
             </motion.div>
           ))}

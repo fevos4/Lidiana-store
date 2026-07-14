@@ -7,6 +7,7 @@ import { fadeUp } from '@/animations'
 import { COLLECTIONS } from '@/data/collections'
 import { FEATURED_PRODUCTS } from '@/data/products'
 import { FeaturedCarousel } from '@/components/features/FeaturedCarousel'
+import { CollectionsCarousel } from '@/components/features/CollectionsCarousel'
 import { TestimonialCarousel } from '@/components/features/TestimonialCarousel'
 
 export function Home() {
@@ -123,7 +124,10 @@ export function Home() {
           <h2 className="font-heading text-h1 md:text-[2.75rem] text-black leading-snug">Our Collections</h2>
           <p className="mt-4 font-body text-sm text-text/50 max-w-md mx-auto">Designed for every unforgettable moment.</p>
         </motion.div>
-        <div className="grid grid-cols-1 gap-12 md:grid-cols-2 lg:grid-cols-4">
+        <div className="md:hidden">
+          <CollectionsCarousel />
+        </div>
+        <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-12">
           {COLLECTIONS.map((col, i) => (
             <motion.div key={col.id}
               initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }}
@@ -138,6 +142,7 @@ export function Home() {
                   <h3 className="font-heading text-h3 text-black group-hover:text-gold transition-colors duration-300">{col.name}</h3>
                   <p className="mt-1 font-body text-xs uppercase tracking-[0.15em] text-text/50">{col.subtitle}</p>
                   <span className="mt-3 block h-px w-0 bg-gold transition-all duration-500 group-hover:w-full" />
+                  <p className="mt-3 font-body text-xs uppercase tracking-[0.15em] text-gold opacity-0 group-hover:opacity-100 transition-opacity duration-300">See More →</p>
                 </div>
               </Link>
             </motion.div>
@@ -145,70 +150,73 @@ export function Home() {
         </div>
       </Container>
 
-      <section className="py-section bg-black text-white">
+      <section className="py-[60px_0_30px] md:py-section" style={{ backgroundColor: '#0a0a0a' }}>
         <Container>
-          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="mb-16 text-center">
-            <p className="font-body text-xs uppercase tracking-[0.25em] text-gold mb-4">The Lidiana Experience</p>
-            <h2 className="font-heading text-h1 md:text-[2.75rem] leading-snug">Defined by Excellence</h2>
+          <motion.div variants={fadeUp} initial="hidden" whileInView="visible" viewport={{ once: true, margin: '-100px' }} className="mb-8 text-center md:mb-16">
+            <p className="font-body text-[11px] uppercase tracking-[2px] text-gold mb-4">The Lidiana Experience</p>
+            <h2 className="font-heading text-[30px] md:text-h1 lg:text-[2.75rem] leading-[1.15] md:leading-snug text-white">Defined by Excellence</h2>
           </motion.div>
-          <div className="grid grid-cols-2 gap-0 md:grid-cols-4">
+          <div className="md:grid md:grid-cols-4 md:gap-0">
             {[
-              { title: 'Premium Quality', icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z' },
-              { title: 'Handcrafted', icon: 'M16 2l4 4-4 4M6 22l-4-4 4-4M8 2l-6 6 6 6M16 22l6-6-6-6' },
-              { title: 'Custom Designs', icon: 'M12 20h9M16.5 3.5l-9 9M7 21l-4-4' },
-              { title: 'Worldwide Inspiration', icon: 'M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2m0 20c2.76 0 5-4.48 5-10S14.76 2 12 2m0 20c-2.76 0-5-4.48-5-10S9.24 2 12 2m-10 0h20M2 12h20' },
+              { title: 'Premium Quality', icon: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z', desc: 'Uncompromising standards in every stitch, fabric, and finish.' },
+              { title: 'Handcrafted', icon: 'M16 2l4 4-4 4M6 22l-4-4 4-4M8 2l-6 6 6 6M16 22l6-6-6-6', desc: 'Time-honoured techniques passed through generations of artisans.' },
+              { title: 'Custom Designs', icon: 'M12 20h9M16.5 3.5l-9 9M7 21l-4-4', desc: 'Bespoke creations tailored to your unique vision and silhouette.', featured: true },
+              { title: 'Worldwide Inspiration', icon: 'M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2m0 20c2.76 0 5-4.48 5-10S14.76 2 12 2m0 20c-2.76 0-5-4.48-5-10S9.24 2 12 2m-10 0h20M2 12h20', desc: 'Drawing from Ethiopian heritage with a global modernist lens.' },
             ].map((item, i) => (
               <motion.div key={item.title}
                 initial={{ opacity: 0, y: 24 }} whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ delay: i * 0.12, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
-                className={'group relative px-8 py-12 text-center md:py-16 ' + (i < 3 ? 'md:border-r md:border-gold/20' : '')}>
-                <div className="mx-auto mb-5 flex h-10 w-10 items-center justify-center transition-transform duration-500 group-hover:scale-110">
-                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="h-9 w-9 text-gold/80 transition-colors duration-300 group-hover:text-gold">
+                className={
+                  'group relative flex items-start gap-4 py-[18px] ' +
+                  (i < 3 ? 'border-b border-[#262219] md:border-b-0 ' : '') +
+                  (item.featured
+                    ? 'bg-[#141210] border-l-2 border-l-gold -mx-5 px-5 md:-mx-8 md:px-8 md:bg-[#141210] md:border-l-2 md:border-l-gold md:block md:text-center '
+                    : 'md:block md:px-8 md:text-center ') +
+                  (i < 3 ? 'md:border-r md:border-gold/20 ' : '') +
+                  'md:py-12 md:py-16'
+                }>
+                <div className="mt-0.5 flex h-[22px] w-[22px] shrink-0 items-center justify-center transition-transform duration-500 group-hover:scale-110 md:mx-auto md:mb-5 md:h-10 md:w-10">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1" className="h-[22px] w-[22px] text-gold md:h-9 md:w-9 transition-colors duration-300">
                     <path d={item.icon} />
                   </svg>
                 </div>
-                <h3 className="font-heading text-h3 text-white mb-2.5 transition-colors duration-300 group-hover:text-gold">{item.title}</h3>
-                <p className="font-body text-xs text-white/40 leading-relaxed max-w-[220px] mx-auto">
-                  {i === 0 && 'Uncompromising standards in every stitch, fabric, and finish.'}
-                  {i === 1 && 'Time-honoured techniques passed through generations of artisans.'}
-                  {i === 2 && 'Bespoke creations tailored to your unique vision and silhouette.'}
-                  {i === 3 && 'Drawing from Ethiopian heritage with a global modernist lens.'}
-                </p>
-                <div className="mx-auto mt-6 h-px w-0 bg-gold transition-all duration-500 group-hover:w-12" />
+                <div className="flex-1 md:text-center">
+                  <h3 className="font-heading text-[17px] md:text-h3 text-white mb-1 md:mb-2.5 transition-colors duration-300 group-hover:text-gold">{item.title}</h3>
+                  <p className="font-body text-[13px] md:text-xs leading-[1.5] md:leading-relaxed text-[#8f8c84] max-w-[220px] md:mx-auto">
+                    {item.desc}
+                  </p>
+                  <div className="mt-4 h-px w-0 bg-gold transition-all duration-500 group-hover:w-12 md:mx-auto md:mt-6" />
+                </div>
               </motion.div>
             ))}
           </div>
         </Container>
       </section>
 
-      <section className="py-section bg-white overflow-hidden">
-        <Container>
-          <div className="grid grid-cols-1 gap-16 md:grid-cols-2 md:gap-20 items-center">
-            <motion.div
-              initial={{ opacity: 0, scale: 1.04 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-              className="aspect-[4/5] bg-cover bg-center"
-              style={{ backgroundImage: 'url(/assets/lidiana.jpg)' }}
-            />
+      <section className="bg-white overflow-hidden mt-10 md:mt-0">
+        <div className="md:py-section">
+          <div className="md:grid md:grid-cols-2 md:gap-20 md:items-center">
+            <div className="relative max-h-[220px] overflow-hidden md:max-h-none md:order-none">
+              <img src="/assets/lidiana.jpg" alt="Lidiana Habesha" className="w-full object-cover h-[calc(220px+40px)] -mt-10 md:h-full md:mt-0 object-center" />
+            </div>
             <motion.div
               initial={{ opacity: 0, x: 30 }} whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}>
-              <p className="font-body text-xs uppercase tracking-[0.25em] text-gold mb-4">Our Story</p>
-              <h2 className="font-heading text-h1 text-black leading-snug mb-6">
-                The Story Behind<br />Lidiana Habesha
+              transition={{ duration: 0.8, ease: [0.25, 0.1, 0.25, 1] }}
+              className="px-[22px] py-[28px_0_26px] md:px-0 md:py-0">
+              <p className="font-body text-[11px] uppercase tracking-[2px] text-gold mb-3 md:text-xs md:tracking-[0.25em] md:mb-4">Our Story</p>
+              <h2 className="font-heading text-[26px] leading-[1.2] text-black mb-5 md:text-h1 md:leading-snug md:mb-6">
+                The Story Behind<br className="hidden md:block" />Lidiana Habesha
               </h2>
-              <p className="font-body text-sm leading-relaxed text-text/70 mb-5">
-                Lidiana Habesha was born from a deep reverence for Ethiopian heritage — a desire to honour the artistry of generations past while forging a future where tradition and contemporary fashion exist in harmony. Every stitch, every weave, every silhouette carries the spirit of a culture that has celebrated craftsmanship for millennia.
+              <p className="font-body text-sm leading-[1.6] md:leading-relaxed mb-5" style={{ color: '#5a6270' }}>
+                Lidiana Habesha was born from a deep reverence for Ethiopian heritage — a desire to honour the artistry of generations past while forging a future where tradition and contemporary fashion exist in harmony.
               </p>
-              <p className="font-body text-sm leading-relaxed text-text/70 mb-8 italic border-l-2 border-gold pl-5">
+              <p className="font-body text-sm italic leading-[1.55] md:leading-relaxed mb-6 md:mb-8 border-l-2 border-gold pl-[14px] md:pl-5" style={{ color: '#3a4250' }}>
                 "We do not simply make clothes. We weave stories, preserve legacies, and dress the modern woman in the soul of Ethiopia."
               </p>
-              <div className="mb-8 h-px w-16 bg-gold" />
-              <ul className="space-y-2.5">
+              <div className="mb-6 h-px w-16 bg-gold md:mb-8" />
+              <ul className="space-y-[12px] md:space-y-2.5">
                 {['Luxury Craftsmanship', 'Premium Fabrics', 'Handmade Details', 'Modern Ethiopian Identity'].map((item) => (
                   <li key={item} className="font-body text-sm text-text/70 flex items-center gap-3">
                     <span className="h-px w-4 bg-gold/60" />
@@ -217,12 +225,12 @@ export function Home() {
                 ))}
               </ul>
               <Link to="/about"
-                className="mt-8 inline-flex rounded-sm border border-gold px-8 py-3 font-body text-xs uppercase tracking-[0.2em] text-gold transition-all duration-300 hover:bg-gold hover:text-white">
+                className="mt-8 block w-full rounded-sm border border-gold bg-gold px-8 py-[15px] font-body text-[15px] uppercase text-center tracking-[1.5px] text-white transition-all duration-300 hover:bg-gold/90 md:inline-flex md:w-auto md:py-3 md:text-xs md:tracking-[0.2em] md:text-gold md:bg-transparent hover:md:bg-gold hover:md:text-white">
                 Discover Our Story
               </Link>
             </motion.div>
           </div>
-        </Container>
+        </div>
       </section>
 
       <section className="py-section bg-[#F7F5F2] text-center overflow-hidden">
@@ -340,9 +348,6 @@ export function Home() {
                   { label: 'Address', value: 'Medhanialem mall 3rd floor 📍', icon: 'M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z' },
                   { label: 'Phone', value: '0945445386', icon: 'M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.79 19.79 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45 12.84 12.84 0 002.81.7A2 2 0 0122 16.92z' },
                   { label: 'Telegram', value: 'https://t.me/lidiana_solomon', icon: 'M21.5 2.5l-20 7.5 5.5 2.5 2.5 7 5-4 7 5z' },
-                  { label: 'Made in Ethiopia', value: '🇪🇹', icon: 'M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5' },
-                  { label: 'Worldwide shipping', value: '🌎', icon: 'M22 12c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2m0 20c2.76 0 5-4.48 5-10S14.76 2 12 2m0 20c-2.76 0-5-4.48-5-10S9.24 2 12 2' },
-                  { label: 'Free delivery in Addis', value: '🚚', icon: 'M1 12h4l3-3h5l3 3h4M5 18a2 2 0 100-4 2 2 0 000 4zm14 0a2 2 0 100-4 2 2 0 000 4z' },
                 ].map((item) => (
                   <div key={item.label} className="flex items-start gap-4">
                     <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center border border-gold/20 bg-white">
